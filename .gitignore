@@ -1,0 +1,10 @@
+# Environment variables — NEVER commit your API key to GitHub
+.env
+
+# Python cache and virtual environment
+__pycache__/
+*.pyc
+venv/
+
+# Editor settings
+.vscode/

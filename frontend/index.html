@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search current weather and a 5-day forecast for any city.">
+  <title>Weather Dashboard</title>
+
+  <!-- Font Awesome provides the small icons on the stat cards -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Project styles (kept in a separate file, never inline) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ======================= HEADER ======================= -->
+  <header class="site-header">
+    <div class="container">
+      <h1>Weather Dashboard</h1>
+      <p class="subtitle">Check current weather and forecasts</p>
+
+      <!-- The form's submit event fires on BOTH the Search button click
+           and the Enter key, so both search methods are supported. -->
+      <form id="search-form" class="search-form" role="search" autocomplete="off">
+        <label for="city-input" class="visually-hidden">City name</label>
+        <input
+          type="text"
+          id="city-input"
+          name="city"
+          placeholder="Enter city name..."
+          aria-label="Enter city name"
+        >
+        <button type="submit" id="search-button" aria-label="Search for the weather of a city">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          Search
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <!-- ======================== MAIN ======================== -->
+  <main class="container">
+
+    <!-- Loading indicator (shown while fetching data) -->
+    <div id="loading" class="loading hidden" role="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Searching...</p>
+    </div>
+
+    <!-- Error message area (errors are shown here, never with alert()) -->
+    <div id="error-message" class="error-message hidden" role="alert"></div>
+
+    <!-- Current weather card -->
+    <section id="current-weather-section" class="current-weather hidden" aria-labelledby="city-name">
+      <article class="weather-card">
+        <h2 id="city-name">&mdash;</h2>
+        <p id="current-date" class="current-date">&mdash;</p>
+
+        <img id="weather-icon" class="weather-icon" src="" alt="" hidden>
+
+        <p id="temperature" class="temperature">&mdash;</p>
+        <p id="condition" class="condition">&mdash;</p>
+        <p id="description" class="description">&mdash;</p>
+        <p id="feels-like" class="feels-like">&mdash;</p>
+      </article>
+    </section>
+
+    <!-- Weather statistics (humidity, wind, pressure, ...) -->
+    <section id="stats-section" class="stats-section hidden" aria-label="Current weather details">
+      <div class="stats-grid">
+        <article class="stat-card">
+          <i class="fa-solid fa-droplet" aria-hidden="true"></i>
+          <h3>Humidity</h3>
+          <p id="humidity-value">&mdash;</p>
+        </article>
+
+        <article class="stat-card">
+          <i class="fa-solid fa-wind" aria-hidden="true"></i>
+          <h3>Wind Speed</h3>
+          <p id="wind-value">&mdash;</p>
+        </article>
+
+        <article class="stat-card">
+          <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+          <h3>Pressure</h3>
+          <p id="pressure-value">&mdash;</p>
+        </article>
+
+        <article class="stat-card">
+          <i class="fa-solid fa-eye" aria-hidden="true"></i>
+          <h3>Visibility</h3>
+          <p id="visibility-value">&mdash;</p>
+        </article>
+
+        <article class="stat-card">
+          <i class="fa-solid fa-sunrise" aria-hidden="true"></i>
+          <h3>Sunrise</h3>
+          <p id="sunrise-value">&mdash;</p>
+        </article>
+
+        <article class="stat-card">
+          <i class="fa-solid fa-sunset" aria-hidden="true"></i>
+          <h3>Sunset</h3>
+          <p id="sunset-value">&mdash;</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5-day forecast (cards are built by script.js) -->
+    <section id="forecast-section" class="forecast-section hidden" aria-label="5-day forecast">
+      <h2>5-Day Forecast</h2>
+      <div id="forecast-container" class="forecast-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        Weather data provided by
+        <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeatherMap</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Project JavaScript (kept in a separate file, never inline) -->
+  <script src="script.js"></script>
+</body>
+</html>

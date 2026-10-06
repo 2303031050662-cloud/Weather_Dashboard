@@ -1,0 +1,366 @@
+/* ============================================================
+   Weather Dashboard — style.css
+   All styling: layout, cards, loading animation, breakpoints.
+   ============================================================ */
+
+/* ---------------- Design tokens ---------------- */
+:root {
+  --color-bg-start: #1e3a8a;   /* deep blue  */
+  --color-bg-mid:   #3b82f6;   /* sky blue   */
+  --color-bg-end:   #9333ea;   /* purple     */
+  --color-card:     #ffffff;
+  --color-text:     #1f2937;
+  --color-text-light: #6b7280;
+  --color-white:    #ffffff;
+  --color-accent:   #f59e0b;   /* amber (search button) */
+  --color-icon:     #2563eb;
+  --color-error-bg:     #fee2e2;
+  --color-error-border: #fca5a5;
+  --color-error-text:   #991b1b;
+  --radius: 16px;
+  --shadow:       0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------------- Reset & base ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: var(--color-text);
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 55%, var(--color-bg-end) 100%);
+  background-attachment: fixed;
+}
+
+.container {
+  width: min(1000px, 92%);
+  margin: 0 auto;
+}
+
+/* Utility classes */
+.hidden { display: none !important; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------- Header & search ---------------- */
+.site-header {
+  text-align: center;
+  padding: 2.5rem 0 1.5rem;
+  color: var(--color-white);
+}
+
+.site-header h1 {
+  font-size: 2.25rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.subtitle {
+  margin-top: 0.25rem;
+  opacity: 0.9;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 520px;
+  margin: 1.5rem auto 0;
+}
+
+.search-form input {
+  flex: 1;
+  min-width: 0;               /* lets the input shrink on small screens */
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 999px;
+  outline: none;
+}
+
+.search-form input:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55);
+}
+
+.search-form button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--color-accent);
+  color: #78350f;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.search-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.search-form button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.search-form button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+/* ---------------- Loading indicator ---------------- */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.5rem 0;
+  color: var(--color-white);
+  font-weight: 500;
+}
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255, 255, 255, 0.35);
+  border-top-color: var(--color-white);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------- Error message ---------------- */
+.error-message {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-error-text);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius);
+}
+
+/* ---------------- Current weather card ---------------- */
+.current-weather {
+  margin-top: 1.5rem;
+}
+
+.weather-card {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-white);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+}
+
+.weather-card h2 {
+  font-size: 1.8rem;
+}
+
+.current-date {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.weather-icon {
+  display: block;
+  width: 130px;
+  height: 130px;
+  margin: 0.5rem auto;
+}
+
+.temperature {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.condition {
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  margin-top: 0.25rem;
+}
+
+.description {
+  opacity: 0.8;
+  text-transform: capitalize;
+}
+
+.feels-like {
+  margin-top: 0.75rem;
+  opacity: 0.9;
+}
+
+/* ---------------- Weather statistics ---------------- */
+.stats-section {
+  margin-top: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  padding: 1.25rem;
+  text-align: center;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.stat-card i {
+  font-size: 1.6rem;
+  color: var(--color-icon);
+}
+
+.stat-card h3 {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.stat-card p {
+  margin-top: 0.25rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* ---------------- Forecast ---------------- */
+.forecast-section {
+  margin: 2rem 0 2.5rem;
+}
+
+.forecast-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  color: var(--color-white);
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.forecast-card {
+  padding: 1.25rem 1rem;
+  text-align: center;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.forecast-card .day {
+  font-weight: 700;
+}
+
+.forecast-card .date {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.forecast-card img {
+  width: 70px;
+  height: 70px;
+  margin: 0.4rem 0;
+}
+
+.forecast-card .condition {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  text-transform: capitalize;
+}
+
+.forecast-card .temps {
+  margin-top: 0.4rem;
+  font-weight: 700;
+}
+
+/* ---------------- Footer ---------------- */
+.site-footer {
+  text-align: center;
+  padding: 0 0 2rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+/* ---------------- Tablet breakpoint ---------------- */
+@media (max-width: 900px) {
+  .site-header h1 {
+    font-size: 1.9rem;
+  }
+
+  .temperature {
+    font-size: 3rem;
+  }
+
+  .weather-icon {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+/* ---------------- Mobile breakpoint ---------------- */
+@media (max-width: 600px) {
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-form button {
+    width: 100%;
+  }
+
+  .stats-grid,
+  .forecast-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .weather-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .temperature {
+    font-size: 2.6rem;
+  }
+}
